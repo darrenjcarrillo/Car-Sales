@@ -23,7 +23,6 @@ export const Reducer = (state = initialState, action) => {
     case ADD_FEATURES:
       return {
         ...state,
-        // additionalPrice: state.additionalPrice + action.payload.price,
         car: {
           ...state.car,
           price: state.car.price + action.payload.price,
@@ -37,13 +36,17 @@ export const Reducer = (state = initialState, action) => {
     case REMOVE_FEATURES:
       return {
         ...state,
-        // additionalPrice: state.additionalPrice - action.payload.price,
         car: {
           ...state,
           price: state.car.price - action.payload.price,
-          features: state.car.features.filter(
-            item => !(item.id === action.payload.id)
-          )
+          name: state.car.name,
+          image: state.car.image,
+          // features: state.car.features.filter(
+          //   item => !(item.id === action.payload.id)
+          // )
+          features: state.car.features.filter(item => {
+            return item.id !== action.payload.id;
+          })
         },
         store: [...state.store, action.payload]
       };
